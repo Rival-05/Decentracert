@@ -8,51 +8,51 @@ export const Issueform = () => {
       </h2>
       <form className="flex w-full max-w-lg flex-col items-center space-y-2">
         <div className="flex w-full flex-col">
-          <label htmlFor="recipient" className="mb-2 text-sm font-medium">
+          <label htmlFor="recipient" className="mb-2 text-base font-medium">
             Recipient&apos;s Name
           </label>
           <input
             type="text"
             id="recipient"
-            className="rounded-md border border-neutral-600 p-2 text-xs focus:outline-none"
+            className="rounded-md border border-neutral-600 p-2 text-sm focus:outline-none"
             placeholder="Name of the person to whom the certificate is issued."
             required
           />
         </div>
 
         <div className="flex w-full flex-col">
-          <label htmlFor="title" className="mb-2 text-sm font-medium">
+          <label htmlFor="title" className="mb-2 text-base font-medium">
             Certificate Title
           </label>
           <input
             type="text"
             id="title"
-            className="rounded-md border border-neutral-600 p-2 text-xs focus:outline-none"
+            className="rounded-md border border-neutral-600 p-2 text-sm focus:outline-none"
             required
             placeholder="Course, degree, or award title."
           />
         </div>
 
         <div className="flex w-full flex-col">
-          <label htmlFor="date" className="mb-2 text-sm font-medium">
+          <label htmlFor="date" className="mb-2 text-base font-medium">
             Issue Date
           </label>
           <input
             type="date"
             id="date"
-            className="rounded-md border border-neutral-600 p-2 text-xs text-neutral-400 focus:outline-none"
+            className="rounded-md border border-neutral-600 p-2 text-sm text-neutral-400 focus:outline-none"
             required
           />
         </div>
 
         <div className="flex w-full flex-col">
-          <label htmlFor="details" className="mb-2 text-sm font-medium">
+          <label htmlFor="details" className="mb-2 text-base font-medium">
             Additional Details
           </label>
           <textarea
             id="details"
             rows={4}
-            className="rounded-md border border-neutral-600 p-2 text-xs focus:outline-none"
+            className="rounded-md border border-neutral-600 p-2 text-sm focus:outline-none"
             placeholder="Any additional information about the certificate."
           />
         </div>
