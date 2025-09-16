@@ -1,10 +1,9 @@
-import { Cards } from "./components/cards";
-import { Container } from "./components/container";
-import { Hero } from "./components/hero";
-import { Navbar } from "./components/navbar";
-import { Steps } from "./components/steps";
+import React from "react";
+import { Navbar } from "../components/navbar";
+import { Container } from "../components/container";
+import { VerifyForm } from "../components/verifyform";
 
-export default function Home() {
+export default function Verify() {
   return (
     <div className="selection:bg-primary/20 relative min-h-screen w-full">
       <div
@@ -16,9 +15,7 @@ export default function Home() {
       />
       <Container>
         <Navbar />
-        <Hero />
-        <Cards />
-        <Steps />
+        <VerifyForm />
       </Container>
     </div>
   );
