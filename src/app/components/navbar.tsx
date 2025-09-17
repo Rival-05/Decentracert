@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,17 +15,17 @@ export const Navbar = () => {
     <div className="flex w-full items-center justify-between">
       <Link
         href="/"
-        className="flex items-center text-xl font-semibold tracking-tighter"
+        className="flex items-center text-base font-semibold tracking-tight sm:text-lg md:text-xl lg:text-2xl"
       >
         <Image src="/logo.svg" alt="Logo" width={80} height={80} />
-        <span>Decentracert</span>
+        Decentracert
       </Link>
-      <div className="flex items-center gap-10">
+      <div className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
         {Links.map((link, index) => (
           <Link
             key={index}
             href={link.href}
-            className="text-sm font-medium tracking-wider text-neutral-400 transition duration-300 hover:text-neutral-50"
+            className="text-xs font-medium tracking-wide text-neutral-400 transition duration-300 hover:text-neutral-50 sm:text-sm md:text-base"
           >
             {link.title}
           </Link>
@@ -32,9 +33,11 @@ export const Navbar = () => {
         {pathname === "/" && (
           <a
             href="#steps"
-            className="cursor-pointer rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-tight text-neutral-800 transition-all duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900"
+            aria-label="Get Started guide"
+            className="cursor-pointer rounded-lg bg-neutral-300 px-3 py-1.5 text-xs font-medium tracking-wide text-neutral-800 transition-all duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-4 sm:py-2 md:text-sm"
           >
-            Get Started
+            <span className="sm:hidden">Guide</span>
+            <span className="hidden sm:inline">Get Started</span>
           </a>
         )}
       </div>
