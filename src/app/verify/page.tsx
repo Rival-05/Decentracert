@@ -1,5 +1,4 @@
 import React from "react";
-import { Navbar } from "../components/navbar";
 import { Container } from "../components/container";
 import { VerifyForm } from "../components/verifyform";
 
@@ -14,7 +13,6 @@ export default function Verify() {
         }}
       />
       <Container>
-        <Navbar />
         <VerifyForm />
       </Container>
     </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import { Navbar } from "../components/navbar";
 import { Container } from "../components/container";
 import { Issueform } from "../components/issueform";
 export default function Issue() {
@@ -13,7 +12,6 @@ export default function Issue() {
         }}
       />
       <Container>
-        <Navbar />
         <Issueform />
       </Container>
     </div>

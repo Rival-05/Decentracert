@@ -3,7 +3,7 @@ import { Key } from "lucide-react";
 
 export const Issueform = () => {
   return (
-    <div className="mx-auto my-6 flex w-full max-w-4xl flex-col items-center justify-center rounded-lg p-6 shadow-md">
+    <div className="mx-auto my-2 flex w-full max-w-4xl flex-col items-center justify-center rounded-lg p-2 shadow-md">
       <h2 className="mb-6 bg-gradient-to-b from-neutral-50 via-neutral-200 to-neutral-400 bg-clip-text text-center text-2xl font-semibold text-transparent sm:text-3xl md:text-4xl">
         Issue Certificate
       </h2>

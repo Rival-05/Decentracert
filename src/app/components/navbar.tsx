@@ -12,7 +12,7 @@ export const Navbar = () => {
     { title: "Verify", href: "/verify" },
   ];
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-2 py-2">
       {pathname === "/" ? (
         <div className="flex items-center text-base font-semibold tracking-tight sm:text-lg md:text-xl lg:text-2xl">
           <Image src="/logo.svg" alt="Logo" width={80} height={80} />
