@@ -16,7 +16,7 @@ export function VerifyForm() {
         />
         <button
           type="submit"
-          className="rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-wide text-neutral-800 transition-colors duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-6 sm:text-base"
+          className="cursor-pointer rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-wide text-neutral-800 transition-colors duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-6 sm:text-base"
         >
           Verify
         </button>
