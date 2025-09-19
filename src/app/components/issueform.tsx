@@ -8,7 +8,7 @@ export const Issueform = () => {
         Issue Certificate
       </h2>
 
-      <form className="flex w-full max-w-lg flex-col space-y-3">
+      <form className="flex w-full max-w-lg flex-col space-y-2">
         <div className="flex w-full flex-col">
           <label
             htmlFor="recipient"

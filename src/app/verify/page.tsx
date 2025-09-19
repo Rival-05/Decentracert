@@ -4,7 +4,7 @@ import { VerifyForm } from "../components/verifyform";
 
 export default function Verify() {
   return (
-    <div className="selection:bg-primary/20 relative min-h-screen w-full">
+    <div className="selection:bg-primary/20 relative w-full">
       <div
         className="fixed inset-0 z-0"
         style={{

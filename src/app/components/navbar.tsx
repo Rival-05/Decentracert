@@ -12,7 +12,7 @@ export const Navbar = () => {
     { title: "Verify", href: "/verify" },
   ];
   return (
-    <div className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-2 py-2">
+    <div className="selection:bg-primary/20 relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-2 py-2">
       {pathname === "/" ? (
         <div className="flex items-center text-base font-semibold tracking-tight sm:text-lg md:text-xl lg:text-2xl">
           <Image src="/logo.svg" alt="Logo" width={80} height={80} />
@@ -35,7 +35,7 @@ export const Navbar = () => {
             return (
               <span
                 key={index}
-                className="relative text-xs font-medium tracking-wide text-neutral-50 sm:text-sm md:text-base"
+                className="relative text-xs font-medium tracking-normal text-neutral-50 sm:text-sm md:text-base"
               >
                 {link.title}
                 <span className="absolute -bottom-0.5 left-0 h-0.5 w-full bg-neutral-50" />
@@ -46,7 +46,7 @@ export const Navbar = () => {
             <Link
               key={index}
               href={link.href}
-              className="text-xs font-medium tracking-wide text-neutral-400 transition duration-300 hover:text-neutral-50 sm:text-sm md:text-base"
+              className="text-xs font-medium tracking-normal text-neutral-400 transition duration-300 hover:text-neutral-50 sm:text-sm md:text-base"
             >
               {link.title}
             </Link>

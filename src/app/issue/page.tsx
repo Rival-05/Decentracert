@@ -3,7 +3,7 @@ import { Container } from "../components/container";
 import { Issueform } from "../components/issueform";
 export default function Issue() {
   return (
-    <div className="selection:bg-primary/20 relative min-h-screen w-full">
+    <div className="selection:bg-primary/20 relative w-full">
       <div
         className="fixed inset-0 z-0"
         style={{

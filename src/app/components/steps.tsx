@@ -52,9 +52,28 @@ export const Steps = () => {
                 height="20"
                 viewBox="0 0 100 20"
               >
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#00ff88">
+                    <animate
+                      attributeName="offset"
+                      values="0;1"
+                      dur="2s"
+                      repeatCount="indefinite"
+                    />
+                  </stop>
+                  <stop offset="100%" stopColor="#00ffaa" stopOpacity="0">
+                    <animate
+                      attributeName="offset"
+                      values="0;1"
+                      dur="2s"
+                      repeatCount="indefinite"
+                    />
+                  </stop>
+                </linearGradient>
+
                 <path
                   d="M0 10 Q50 0 100 10"
-                  stroke="#00ff88"
+                  stroke="url(#gradient)"
                   strokeWidth="2"
                   fill="none"
                   strokeDasharray="4"
