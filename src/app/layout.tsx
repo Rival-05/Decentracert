@@ -19,7 +19,12 @@ export const metadata: Metadata = {
     url: "https://decentracert.vercel.app",
     siteName: "Decentracert",
     images: [
-      { url: "/og.png", width: 1200, height: 630, alt: "Decentracert Preview" },
+      {
+        url: "https://decentracert.vercel.app/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Decentracert Preview",
+      },
     ],
     locale: "en-US",
     type: "website",
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
     title: "Decentracert",
     description:
       "Issue and verify certificates in seconds. Decentracert offers secure, decentralized credential management with instant authenticity checks.",
-    images: ["/og.png"],
+    images: ["https://decentracert.vercel.app/og.png"],
     creator: "@Rival_o5",
   },
 };
