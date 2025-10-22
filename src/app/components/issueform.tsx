@@ -1,14 +1,93 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Key } from "lucide-react";
+import { signCertificate } from "../hashing/cryptoutils";
 
 export const Issueform = () => {
+  const fields = [
+    {
+      id: "privatekey",
+      label: "Private key",
+      placeholder: "Enter your private key.",
+      iconClass: "text-red-600/80",
+    },
+    {
+      id: "publickey",
+      label: "Public key",
+      placeholder: "Enter your public key.",
+      iconClass: "text-green-600/80",
+    },
+  ];
+
+  const [formData, setFormData] = useState({
+    recipient: "",
+    title: "",
+    date: "",
+    details: "",
+    privatekey: "",
+    publickey: "",
+  });
+  const [feedback, setFeedback] = useState({ message: "", type: "" });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const issuingDetails = {
+      recipient: formData.recipient,
+      title: formData.title,
+      date: formData.date,
+      details: formData.details,
+    };
+
+    const signature = await signCertificate(
+      issuingDetails,
+      formData.privatekey,
+    );
+
+    const certificateData = {
+      issuingDetails,
+      Signature: signature,
+      publicKey: formData.publickey,
+    };
+
+    try {
+      const res = await fetch("/api/issue", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(certificateData),
+      });
+      const data = await res.json();
+      setFeedback({
+        message: "Certificate issued successfully.",
+        type: "success",
+      });
+      console.log("Your certificate has been issued successfully.", data);
+    } catch (err) {
+      setFeedback({
+        message: "Certificate couldn't be issued. Please try again later.",
+        type: "error",
+      });
+      console.log("Certificate couldn't be issued.");
+    }
+  };
+
   return (
     <div className="mx-auto my-2 flex w-full max-w-4xl flex-col items-center justify-center rounded-lg p-2 shadow-md">
       <h2 className="mb-6 bg-gradient-to-b from-neutral-50 via-neutral-200 to-neutral-400 bg-clip-text text-center text-2xl font-semibold text-transparent sm:text-3xl md:text-4xl">
         Issue Certificate
       </h2>
 
-      <form className="flex w-full max-w-lg flex-col space-y-2">
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full max-w-lg flex-col space-y-2"
+      >
         <div className="flex w-full flex-col">
           <label
             htmlFor="recipient"
@@ -19,6 +98,8 @@ export const Issueform = () => {
           <input
             type="text"
             id="recipient"
+            value={formData.recipient}
+            onChange={handleChange}
             className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
             placeholder="Name of the person to whom the certificate is issued."
             required
@@ -35,6 +116,8 @@ export const Issueform = () => {
           <input
             type="text"
             id="title"
+            value={formData.title}
+            onChange={handleChange}
             className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
             required
             placeholder="Course, degree, or award title."
@@ -51,6 +134,8 @@ export const Issueform = () => {
           <input
             type="date"
             id="date"
+            value={formData.date}
+            onChange={handleChange}
             className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide text-neutral-400 focus:outline-none sm:text-base"
             required
           />
@@ -66,46 +151,38 @@ export const Issueform = () => {
           <textarea
             id="details"
             rows={4}
+            value={formData.details}
+            onChange={handleChange}
             className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
             placeholder="Any additional information about the certificate."
           />
         </div>
 
-        {/* Keys */}
         <div className="flex w-full flex-col gap-4 sm:flex-row">
-          <div className="flex w-full flex-col sm:w-1/2">
-            <label
-              htmlFor="privateKey"
-              className="mb-2 flex items-center gap-2 text-sm font-medium tracking-wide sm:text-base"
-            >
-              <Key className="inline-block h-5 w-5 text-red-600/80" />
-              Private key
-            </label>
-            <input
-              type="text"
-              id="privateKey"
-              className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
-              required
-              placeholder="Enter your private key."
-            />
-          </div>
-
-          <div className="flex w-full flex-col sm:w-1/2">
-            <label
-              htmlFor="publicKey"
-              className="mb-2 flex items-center gap-2 text-sm font-medium tracking-wide sm:text-base"
-            >
-              <Key className="inline-block h-5 w-5 text-green-600/80" />
-              Public key
-            </label>
-            <input
-              type="text"
-              id="publicKey"
-              className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
-              required
-              placeholder="Enter your public key."
-            />
-          </div>
+          {fields.map((field) => (
+            <div key={field.id} className="flex w-full flex-col sm:w-1/2">
+              <label
+                htmlFor={field.id}
+                className="mb-2 flex items-center gap-2 text-sm font-medium tracking-wide sm:text-base"
+              >
+                <Key className={`inline-block h-5 w-5 ${field.iconClass}`} />
+                {field.label}
+              </label>
+              <input
+                type="text"
+                id={field.id}
+                value={
+                  field.id === "privatekey"
+                    ? formData.privatekey
+                    : formData.publickey
+                }
+                onChange={handleChange}
+                className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
+                required
+                placeholder={field.placeholder}
+              />
+            </div>
+          ))}
         </div>
         <button
           type="submit"
