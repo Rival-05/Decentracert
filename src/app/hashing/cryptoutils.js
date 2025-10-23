@@ -28,11 +28,5 @@ export async function signCertificate(details, privateKey) {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
 
-  const certificateData = {
-    details,
-    signature: signatureHex,
-    publicKey: formData.publickey,
-  };
-
-  return certificateData;
+  return signatureHex;
 }

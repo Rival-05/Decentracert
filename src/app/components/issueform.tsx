@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Key } from "lucide-react";
 import { signCertificate } from "../hashing/cryptoutils";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Issueform = () => {
   const fields = [
@@ -27,7 +28,9 @@ export const Issueform = () => {
     privatekey: "",
     publickey: "",
   });
+
   const [feedback, setFeedback] = useState({ message: "", type: "" });
+  const [Loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -38,6 +41,8 @@ export const Issueform = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    const toastId = toast.loading("Issuing Certificate...");
 
     const issuingDetails = {
       recipient: formData.recipient,
@@ -46,40 +51,39 @@ export const Issueform = () => {
       details: formData.details,
     };
 
-    const signature = await signCertificate(
-      issuingDetails,
-      formData.privatekey,
-    );
-
-    const certificateData = {
-      issuingDetails,
-      Signature: signature,
-      publicKey: formData.publickey,
-    };
-
     try {
+      const signature = await signCertificate(
+        issuingDetails,
+        formData.privatekey,
+      );
+      const certificateData = {
+        issuingDetails,
+        Signature: signature,
+        publicKey: formData.publickey,
+      };
+
       const res = await fetch("/api/issue", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(certificateData),
       });
+
+      if (!res.ok) throw new Error("Request failed");
+
       const data = await res.json();
-      setFeedback({
-        message: "Certificate issued successfully.",
-        type: "success",
-      });
-      console.log("Your certificate has been issued successfully.", data);
+      console.log("Certificate issued successfully.", data);
+      toast.success("Certificate Issued Successfully!", { id: toastId });
     } catch (err) {
-      setFeedback({
-        message: "Certificate couldn't be issued. Please try again later.",
-        type: "error",
+      console.error("Certificate couldn't be issued:", err);
+      toast.error("Certificate could not be issued. Please try again later.", {
+        id: toastId,
       });
-      console.log("Certificate couldn't be issued.");
     }
+    setLoading(false);
   };
 
   return (
-    <div className="mx-auto my-2 flex w-full max-w-4xl flex-col items-center justify-center rounded-lg p-2 shadow-md">
+    <div className="mx-auto my-2 flex w-full max-w-4xl flex-col items-center justify-center rounded-lg p-4">
       <h2 className="mb-6 bg-gradient-to-b from-neutral-50 via-neutral-200 to-neutral-400 bg-clip-text text-center text-2xl font-semibold text-transparent sm:text-3xl md:text-4xl">
         Issue Certificate
       </h2>
@@ -171,11 +175,7 @@ export const Issueform = () => {
               <input
                 type="text"
                 id={field.id}
-                value={
-                  field.id === "privatekey"
-                    ? formData.privatekey
-                    : formData.publickey
-                }
+                value={formData[field.id as keyof typeof formData]}
                 onChange={handleChange}
                 className="rounded-md border border-neutral-600 p-2 text-sm font-light tracking-wide focus:outline-none sm:text-base"
                 required
@@ -184,12 +184,15 @@ export const Issueform = () => {
             </div>
           ))}
         </div>
+
         <button
           type="submit"
-          className="mt-4 cursor-pointer rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-wide text-neutral-800 transition-colors duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-6 sm:py-3 sm:text-base"
+          disabled={Loading}
+          className={`mt-4 cursor-pointer rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-wide text-neutral-800 transition-colors duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-6 sm:py-3 sm:text-base ${Loading ? "cursor-not-allowed opacity-50" : ""}`}
         >
-          Issue Certificate
+          {Loading ? "Issuing..." : "Issue Certificate"}
         </button>
+        <Toaster position="bottom-right" />
       </form>
     </div>
   );
