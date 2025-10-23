@@ -5,7 +5,6 @@ export async function POST(req: Request) {
     console.log("Received certificate data:", body);
 
     return NextResponse.json({
-        messageReceived: true,
-        message: body
+        messageReceived: true
     });
 }

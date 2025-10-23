@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Key } from "lucide-react";
 import { signCertificate } from "../hashing/cryptoutils";
 import toast, { Toaster } from "react-hot-toast";
@@ -29,7 +29,6 @@ export const Issueform = () => {
     publickey: "",
   });
 
-  const [feedback, setFeedback] = useState({ message: "", type: "" });
   const [Loading, setLoading] = useState(false);
 
   const handleChange = (
