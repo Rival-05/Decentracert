@@ -187,7 +187,7 @@ export const Issueform = () => {
         <button
           type="submit"
           disabled={Loading}
-          className={`mt-4 cursor-pointer rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-wide text-neutral-800 transition-colors duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-6 sm:py-3 sm:text-base ${Loading ? "cursor-not-allowed opacity-50" : ""}`}
+          className={`mt-4 cursor-pointer rounded-lg bg-neutral-200 px-4 py-2 text-sm font-medium tracking-wide text-neutral-800 transition-colors duration-300 hover:bg-neutral-400 hover:text-neutral-900 sm:px-6 sm:py-3 sm:text-base ${Loading ? "cursor-not-allowed opacity-50" : ""}`}
         >
           {Loading ? "Issuing..." : "Issue Certificate"}
         </button>

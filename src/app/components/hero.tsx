@@ -12,7 +12,7 @@ export const Hero = () => {
         trusted.
       </p>
       <Link href={"/issue"} className="mt-4">
-        <button className="group flex cursor-pointer items-center gap-2 rounded-lg bg-neutral-300 px-4 py-2 text-sm font-medium tracking-tight text-neutral-800 transition-colors duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:text-base md:px-6 md:py-3">
+        <button className="group flex cursor-pointer items-center gap-2 rounded-lg bg-neutral-200 px-4 py-2 text-sm font-medium tracking-tight text-neutral-800 transition-colors duration-300 hover:bg-neutral-400 hover:text-neutral-900 sm:text-base md:px-4 md:py-2">
           Start issuing certificates
           <svg
             width="16"

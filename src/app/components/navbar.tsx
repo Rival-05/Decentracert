@@ -10,6 +10,7 @@ export const Navbar = () => {
   const Links = [
     { title: "Issue", href: "/issue" },
     { title: "Verify", href: "/verify" },
+    { title: "Generate Keys", href: "/generatekeys" },
   ];
   return (
     <div className="selection:bg-primary/20 relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-2 py-2">
@@ -57,7 +58,7 @@ export const Navbar = () => {
           <Link
             href="#steps"
             aria-label="Get Started guide"
-            className="cursor-pointer rounded-lg bg-neutral-300 px-3 py-1.5 text-xs font-medium tracking-wide text-neutral-800 transition-all duration-300 text-shadow-xs hover:bg-neutral-50 hover:text-neutral-900 sm:px-4 sm:py-2 md:text-sm"
+            className="cursor-pointer rounded-lg bg-neutral-200 px-3 py-1.5 text-xs font-medium tracking-wide text-neutral-800 transition-all duration-300 hover:bg-neutral-400 hover:text-neutral-900 sm:px-4 sm:py-2 md:text-sm"
           >
             <span className="sm:hidden">Guide</span>
             <span className="hidden sm:inline">Get Started</span>
