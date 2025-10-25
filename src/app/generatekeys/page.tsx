@@ -5,7 +5,7 @@ import { Keys } from "../components/keys";
 
 export default function Verify() {
   return (
-    <div className="selection:bg-primary/20 relative w-full">
+    <div className="selection:bg-primary/20 relative mt-8 w-full">
       <div
         className="fixed inset-0 z-0"
         style={{
