@@ -50,10 +50,12 @@ export const Issueform = () => {
       details: formData.details,
     };
 
+    const decodedPrivateKey = JSON.parse(atob(formData.privatekey));
+
     try {
       const signature = await signCertificate(
         issuingDetails,
-        formData.privatekey,
+        decodedPrivateKey,
       );
       const certificateData = {
         issuingDetails,
