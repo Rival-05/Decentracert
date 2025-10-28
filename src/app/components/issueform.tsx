@@ -58,9 +58,8 @@ export const Issueform = () => {
         decodedPrivateKey,
       );
       const certificateData = {
-        issuingDetails,
+        issuingDetails: issuingDetails,
         Signature: signature,
-        publicKey: formData.publickey,
       };
 
       const res = await fetch("/api/issue", {

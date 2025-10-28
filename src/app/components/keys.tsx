@@ -67,7 +67,9 @@ export function Keys() {
                     value={value}
                   />
                   <button
-                    className="cursor-pointer rounded-r-lg border border-l-0 border-neutral-600 bg-neutral-800 px-2 text-sm font-light tracking-tight text-neutral-200 hover:bg-neutral-900 hover:text-neutral-100"
+                    className={`cursor-pointer rounded-r-lg border border-l-0 border-neutral-600 bg-neutral-800 px-2 text-sm font-light tracking-tight text-neutral-200 hover:bg-neutral-900 hover:text-neutral-100 ${
+                      loading ? "cursor-not-allowed opacity-50" : ""
+                    }`}
                     style={{ paddingTop: "0.25rem", paddingBottom: "0.25rem" }}
                     onClick={() => handleCopy(value, label)}
                   >

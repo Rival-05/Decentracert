@@ -1,5 +1,3 @@
-// cryptoutils.js
-
 export async function signCertificate(details, privateKeyJwk) {
   const encoder = new TextEncoder();
   const message = JSON.stringify(details);
