@@ -30,6 +30,7 @@ export const Issueform = () => {
   });
 
   const [Loading, setLoading] = useState(false);
+  const [cid, setCid] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -72,6 +73,7 @@ export const Issueform = () => {
 
       const data = await res.json();
       console.log("Certificate issued successfully.", data);
+      setCid(data.cid);
       toast.success("Certificate Issued Successfully!", { id: toastId });
     } catch (err) {
       console.error("Certificate couldn't be issued:", err);
@@ -194,6 +196,13 @@ export const Issueform = () => {
         </button>
         <Toaster position="bottom-right" />
       </form>
+
+      {cid && (
+        <div className="mt-4 w-full max-w-lg rounded-md border border-neutral-600 p-3 text-xs sm:text-sm">
+          <p className="mb-1 font-medium">Certificate CID:</p>
+          <p className="font-mono break-all">{cid}</p>
+        </div>
+      )}
     </div>
   );
 };

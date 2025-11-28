@@ -82,7 +82,7 @@ export function Keys() {
       </div>
       {(keys.privateKey || keys.publicKey) && (
         <h3 className="mt-4 flex w-full items-center justify-center text-xs font-light text-neutral-300 sm:text-sm md:text-base">
-          - Kindly do not share the private key with anyone.
+          - Do not share the private key with anyone.
         </h3>
       )}
     </div>

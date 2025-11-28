@@ -8,17 +8,26 @@ export function VerifyForm() {
     {
       id: "certificateId",
       label: "Certificate ID",
-      placeholder: "Enter your certificate ID.",
+      placeholder: "Enter your certificate CID.",
     },
     {
       id: "publicKey",
       label: "Public Key",
-      placeholder: "Enter your public key.",
+      placeholder: "Enter your public key (Base64).",
       icon: Key,
     },
   ];
 
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    certificateId: "",
+    publicKey: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,10 +35,26 @@ export function VerifyForm() {
     const toastId = toast.loading("Verifying Certificate...");
 
     try {
-      await new Promise((res) => setTimeout(res, 2000));
-      toast.success("Certificate Verified Successfully!", { id: toastId });
-    } catch {
-      toast.error("Certificate Verification Failed. Please try again later.", {
+      const res = await fetch("/api/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cid: formData.certificateId,
+          publicKeyBase64: formData.publicKey,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Request failed");
+      const data = await res.json();
+
+      if (data.valid) {
+        toast.success("Certificate Verified Successfully!", { id: toastId });
+      } else {
+        toast.error("Certificate is tampered.", { id: toastId });
+      }
+    } catch (err) {
+      console.error("Verification error:", err);
+      toast.error("Certificate Verification Failed. Please try again.", {
         id: toastId,
       });
     }
@@ -57,7 +82,10 @@ export function VerifyForm() {
                 />
               )}
               <input
+                id={field.id}
                 type="text"
+                value={formData[field.id as keyof typeof formData]}
+                onChange={handleChange}
                 className={`w-full rounded-lg border border-neutral-600 px-3 py-2 text-sm font-light tracking-wide focus:outline-none sm:text-base ${
                   Icon ? "pl-9" : ""
                 }`}
