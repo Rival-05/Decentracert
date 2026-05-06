@@ -16,8 +16,7 @@ import {
 import { sileo } from "sileo";
 import Link from "next/link";
 import { useAuthDashboardRedirect } from "@/lib/dashboardRedirect";
-
-type Role = "holder" | "issuer";
+import { Role } from "@/types/auth";
 
 export default function Signupui() {
   const router = useRouter();

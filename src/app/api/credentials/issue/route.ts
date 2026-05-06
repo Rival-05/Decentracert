@@ -210,6 +210,17 @@ export async function POST(req: NextRequest) {
         );
     } catch (error) {
         console.error("Credential issuance error:", error);
+
+        // Handle database timeout errors
+        if (error instanceof Error) {
+            if (error.message.includes("timeout") || error.message.includes("SocketTimeout")) {
+                return NextResponse.json(
+                    { success: false, message: "Database connection timeout. Please try again." },
+                    { status: 503 }
+                );
+            }
+        }
+
         return NextResponse.json(
             { success: false, message: "Internal server error" },
             { status: 500 }

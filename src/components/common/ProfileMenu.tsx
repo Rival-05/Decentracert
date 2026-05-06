@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Copy from "@/components/svgs/copy";
 import Tick from "@/components/svgs/tick";
+import Logout from "@/components/svgs/logout";
 import { apiFetch, getToken } from "@/lib/api";
 
 type NavbarUser = {
@@ -187,7 +188,7 @@ export function ProfileMenu() {
                 <span
                   className={`transition-all duration-200 ${isCopied ? "scale-10 opacity-0" : "scale-100 opacity-100"}`}
                 >
-                  <Copy className="lucide lucide-copy-icon lucide-copy" />
+                  <Copy />
                 </span>
                 <span
                   className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ${isCopied ? "scale-100 opacity-100" : "scale-75 opacity-0"}`}
@@ -209,9 +210,11 @@ export function ProfileMenu() {
         <Button
           type="button"
           variant="destructive"
-          className="w-full cursor-pointer justify-center"
+          className="flex w-full cursor-pointer justify-start gap-2"
           onClick={handleLogout}
+          size="default"
         >
+          <Logout />
           Log out
         </Button>
       </DropdownMenuContent>

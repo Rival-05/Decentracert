@@ -179,6 +179,16 @@ export async function GET(
     } catch (error) {
         console.error("Verification error:", error);
 
+        // Handle database timeout errors
+        if (error instanceof Error) {
+            if (error.message.includes("timeout") || error.message.includes("SocketTimeout")) {
+                return NextResponse.json(
+                    { success: false, message: "Database connection timeout. Please try again." },
+                    { status: 503 }
+                );
+            }
+        }
+
         return NextResponse.json(
             {
                 success: false,

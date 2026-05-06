@@ -2,14 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { ProfileMenu } from "@/components/common/ProfileMenu";
+import { topNavActions } from "@/config/navigation";
 
 export function Navbar() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-
   return (
     <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-3 py-3 sm:px-4 sm:py-4 md:px-6">
@@ -24,19 +20,19 @@ export function Navbar() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-3">
-          {isHome && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="cursor-pointer text-xs tracking-wide sm:text-sm"
-            >
-              <Link href="/docs" aria-label="Get Started guide">
-                <span className="sm:hidden">Guide</span>
-                <span className="hidden sm:inline">Get Started</span>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            {topNavActions.map((action) => (
+              <Link
+                key={action.href}
+                href={action.href}
+                aria-label={action.ariaLabel}
+                className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+              >
+                {action.label.desktop}
               </Link>
-            </Button>
-          )}
+            ))}
+          </div>
           <ProfileMenu />
         </div>
       </div>

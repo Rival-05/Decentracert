@@ -12,39 +12,39 @@ export async function GET(req: NextRequest) {
                 { status: 401 }
             );
         }
+
         const token = authHeader.split(" ")[1];
         const decoded = verifyToken(token);
 
-        if (!decoded || decoded.role !== "STUDENT" || !decoded.studentId) {
+        if (!decoded || decoded.role !== "ISSUER" || !decoded.issuerId) {
             return NextResponse.json(
                 { success: false, message: "Unauthorized access" },
                 { status: 401 }
             );
         }
 
-        // Fetch student
-        const student = await prisma.student.findUnique({
-            where: { id: decoded.studentId },
+        // Fetch issuer
+        const issuer = await prisma.issuer.findUnique({
+            where: { id: decoded.issuerId },
             select: {
                 id: true,
-                name: true,
+                orgName: true,
                 email: true,
-                enrollment: true,
-                walletId: true,
-                createdAt: true,
+                domain: true,
+                status: true,
             },
         });
 
-        if (!student) {
+        if (!issuer) {
             return NextResponse.json(
-                { success: false, message: "Student not found" },
+                { success: false, message: "Issuer not found" },
                 { status: 404 }
             );
         }
 
-        // Fetch credentials belonging to this student
+        // Fetch credentials issued by this issuer
         const credentials = await prisma.credential.findMany({
-            where: { studentId: student.id },
+            where: { issuerId: issuer.id },
             orderBy: { issuedAt: "desc" },
             select: {
                 id: true,
@@ -55,23 +55,16 @@ export async function GET(req: NextRequest) {
                 status: true,
                 issuedAt: true,
                 expiresAt: true,
-                issuer: {
-                    select: {
-                        id: true,
-                        orgName: true,
-                        domain: true,
-                    },
-                },
             },
         });
 
         return NextResponse.json({
             success: true,
-            student,
+            issuer,
             credentials,
         });
     } catch (error) {
-        console.error("Error fetching student credentials:", error);
+        console.error("Error fetching issued credentials:", error);
 
         // Handle database timeout errors
         if (error instanceof Error) {
@@ -86,7 +79,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(
             { success: false, message: "Internal server error" },
             {
-                status: 500
+                status: 500,
             }
         );
     }
